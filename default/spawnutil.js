@@ -2,26 +2,26 @@ let constants = require('constants')
 let locations = require('locations')
 
 let minHarvester = 2;
-let minUpgrader = 4;
-let minBuilder = 6;
+let minUpgrader = 2;
+let minBuilder = 4;
 
 let spawnutil = {
 
     spawnCreep: function () {
 
         if (minUpgrader > this.getCountOf(constants.GROUP_UPGRADER)) {
-            this.spawnHarvester()
+            this.spawnUpgrader()
 
         } else if (minHarvester > this.getCountOf(constants.GROUP_HARVESTER)) {
-            this.spawnUpgrader()
+            this.spawnHarvester()
 
         } else if (minBuilder > this.getCountOf(constants.GROUP_BUILDER)) {
             this.spawnBuilder()
         }
 
-        // console.log('harvester:', this.getCountOf(constants.GROUP_HARVESTER), '(', minHarvester, ')');
-        // console.log('upgrader:', this.getCountOf(constants.GROUP_UPGRADER), '(', minUpgrader, ')');
-        // console.log('builder:', this.getCountOf(constants.GROUP_BUILDER), '(', minBuilder, ')');
+        console.log('harvester:', this.getCountOf(constants.GROUP_HARVESTER), '(', minHarvester, ')');
+        console.log('upgrader:', this.getCountOf(constants.GROUP_UPGRADER), '(', minUpgrader, ')');
+        console.log('builder:', this.getCountOf(constants.GROUP_BUILDER), '(', minBuilder, ')');
     },
 
     getCountOf: function (groupName) {

@@ -13,11 +13,19 @@ let roleBuilder = {
         }
 
         if (creep.memory.building) {
-            let targets = creep.room.find(FIND_CONSTRUCTION_SITES);
-            if (targets.length) {
-                if (creep.build(targets[0]) === ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0], {visualizePathStyle: {stroke: '#ff1b34'}});
+            let constructions = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
+            if (constructions) {
+                if (creep.build(constructions) === ERR_NOT_IN_RANGE) {
+                    creep.moveTo(constructions, {visualizePathStyle: {stroke: '#ff1b34'}});
                 }
+            } else {
+                let decayingBuilding = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+                    filter: (structure) => {
+                        return structure.structureType === STRUCTURE_ROAD
+                            && structure.ticksToDecay < 500;
+                    }
+                });
+                upgradeRole.run(creep);
             }
         } else {
             let sources = creep.room.find(FIND_SOURCES);
