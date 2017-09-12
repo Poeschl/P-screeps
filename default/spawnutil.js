@@ -33,21 +33,24 @@ let spawnutil = {
     },
 
     spawnUpgrader: function () {
-        this.spawnCreepOfGroup([WORK, WORK, CARRY, MOVE], constants.GROUP_UPGRADER)
+        this.spawnCreepOfGroup([WORK, CARRY, MOVE], constants.GROUP_UPGRADER)
     },
 
     spawnBuilder: function () {
-        this.spawnCreepOfGroup([WORK, WORK, CARRY, MOVE], constants.GROUP_BUILDER)
+        this.spawnCreepOfGroup([WORK, CARRY, MOVE], constants.GROUP_BUILDER)
     },
 
     spawnCreepOfGroup: function (modules, group) {
-        let result = locations.HOME_SPAWN.createCreep(modules, undefined, {role: group});
-        if (result === ERR_BUSY) {
-            console.log('Couldn\'t create creep of group', group, '. Spawn is busy!')
-        } else if (result === ERR_NOT_ENOUGH_ENERGY) {
-            console.log('Couldn\'t create creep of group', group, '. Low energy!')
-        } else {
-            console.log('Created new creep: ', result, '(', group, ')')
+        let spawn = locations.HOME_SPAWN;
+        if (spawn !== null) {
+            let result = locations.HOME_SPAWN.createCreep(modules, undefined, {role: group});
+            if (result === ERR_BUSY) {
+                console.log('Couldn\'t create creep of group', group, '. Spawn is busy!')
+            } else if (result === ERR_NOT_ENOUGH_ENERGY) {
+                console.log('Couldn\'t create creep of group', group, '. Low energy!')
+            } else {
+                console.log('Created new creep: ', result, '(', group, ')')
+            }
         }
     }
 };
