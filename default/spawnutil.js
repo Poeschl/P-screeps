@@ -9,11 +9,11 @@ let spawnutil = {
 
     spawnCreep: function () {
 
-        if (minUpgrader > this.getCountOf(constants.GROUP_UPGRADER)) {
-            this.spawnUpgrader()
-
-        } else if (minHarvester > this.getCountOf(constants.GROUP_HARVESTER)) {
+        if (minHarvester > this.getCountOf(constants.GROUP_HARVESTER)) {
             this.spawnHarvester()
+
+        } else if (minUpgrader > this.getCountOf(constants.GROUP_UPGRADER)) {
+            this.spawnUpgrader()
 
         } else if (minBuilder > this.getCountOf(constants.GROUP_BUILDER)) {
             this.spawnBuilder()
