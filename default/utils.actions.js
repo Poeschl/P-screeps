@@ -20,13 +20,14 @@ let actions = {
     },
 
     moveTo: function (creep, target, strokeColor = undefined) {
-        if (!creep.memory.standingTime) {
+        if (creep.memory.standingTime === undefined) {
             creep.memory.standingTime = 0;
         }
 
-        let moveResult = creep.moveTo(target, {visualizePathStyle: {stroke: strokeColor}, reusePath: true});
+        let lastPos = creep.pos;
+        creep.moveTo(target, {visualizePathStyle: {stroke: strokeColor}, reusePath: true});
 
-        if (moveResult === ERR_NO_PATH) {
+        if (creep.pos === lastPos) {
             creep.memory.standingTime = creep.memory.standingTime + 1;
         }
 
