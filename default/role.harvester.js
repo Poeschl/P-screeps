@@ -1,4 +1,4 @@
-let locations = require('locations')
+let locations = require('utils.locations')
 
 let roleHarvester = {
 

@@ -1,8 +1,8 @@
 let constants = require('constants')
-let locations = require('locations')
+let locations = require('utils.locations')
 
 let minHarvester = 2;
-let minUpgrader = 2;
+let minUpgrader = 3;
 let minBuilder = 4;
 
 let spawnutil = {
@@ -33,11 +33,11 @@ let spawnutil = {
     },
 
     spawnUpgrader: function () {
-        this.spawnCreepOfGroup([WORK, CARRY, MOVE], constants.GROUP_UPGRADER)
+        this.spawnCreepOfGroup([WORK, WORK, CARRY, MOVE], constants.GROUP_UPGRADER)
     },
 
     spawnBuilder: function () {
-        this.spawnCreepOfGroup([WORK, CARRY, MOVE], constants.GROUP_BUILDER)
+        this.spawnCreepOfGroup([WORK, WORK, CARRY, MOVE], constants.GROUP_BUILDER)
     },
 
     spawnCreepOfGroup: function (modules, group) {

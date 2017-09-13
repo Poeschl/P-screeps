@@ -25,12 +25,13 @@ let roleBuilder = {
                             && structure.ticksToDecay < 500;
                     }
                 });
+                if (creep)
                 upgradeRole.run(creep);
             }
         } else {
-            let sources = creep.room.find(FIND_SOURCES);
-            if (creep.harvest(sources[0]) === ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[0]);
+            let nearSource = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE);
+            if (creep.harvest(nearSource) === ERR_NOT_IN_RANGE) {
+                creep.moveTo(nearSource);
             }
         }
     }

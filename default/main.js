@@ -1,7 +1,7 @@
-let roleHarvester = require('role.harvester');
+let roleHarvester = require("role.harvester");
 let roleUpgrader = require('role.upgrader');
 let roleBuiler = require('role.builder');
-let spawnUtils = require('spawnutil');
+let spawnUtils = require('utils.spawnutil');
 let constants = require('constants')
 
 module.exports.loop = function () {
