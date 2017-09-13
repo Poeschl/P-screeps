@@ -1,4 +1,5 @@
-let upgradeRole = require('role.upgrader')
+let harvesterRole = require('role.harvester')
+let actions = require('utils.actions')
 
 let roleBuilder = {
 
@@ -16,23 +17,14 @@ let roleBuilder = {
             let constructions = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
             if (constructions) {
                 if (creep.build(constructions) === ERR_NOT_IN_RANGE) {
-                    creep.moveTo(constructions, {visualizePathStyle: {stroke: '#ff1b34'}});
+                    actions.moveTo(creep, constructions, '#ff1b34');
                 }
             } else {
-                let decayingBuilding = creep.pos.findClosestByRange(FIND_STRUCTURES, {
-                    filter: (structure) => {
-                        return structure.structureType === STRUCTURE_ROAD
-                            && structure.ticksToDecay < 500;
-                    }
-                });
                 if (creep)
-                upgradeRole.run(creep);
+                    harvesterRole.run(creep);
             }
         } else {
-            let nearSource = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE);
-            if (creep.harvest(nearSource) === ERR_NOT_IN_RANGE) {
-                creep.moveTo(nearSource);
-            }
+            actions.harvestEnergy(creep);
         }
     }
 };
