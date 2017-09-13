@@ -1,9 +1,9 @@
 let constants = require('constants')
 let locations = require('utils.locations')
 
-let minHarvester = 2;
+let minHarvester = 4;
 let minUpgrader = 3;
-let minBuilder = 4;
+let minBuilder = 3;
 
 let spawnutil = {
 
