@@ -4,8 +4,7 @@ const MAX_CREEPS_STANDING_TICKS = 5;
 let actions = {
 
     harvestEnergy(creep) {
-        let targetSource;
-        targetSource = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE);
+        let targetSource = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE);
 
         let creepsAround = targetSource.pos.findInRange(FIND_CREEPS, 2);
         if (creepsAround.length >= MAX_CREEPS_AROUND_ENERGY_SOURCE && creepsAround.indexOf(creep) < 0) {
