@@ -19,9 +19,9 @@ let spawnutil = {
             this.spawnBuilder()
         }
 
-        console.log('harvester:', this.getCountOf(constants.GROUP_HARVESTER), '(', minHarvester, ')');
-        console.log('upgrader:', this.getCountOf(constants.GROUP_UPGRADER), '(', minUpgrader, ')');
-        console.log('builder:', this.getCountOf(constants.GROUP_BUILDER), '(', minBuilder, ')');
+        // console.log('harvester:', this.getCountOf(constants.GROUP_HARVESTER), '(', minHarvester, ')');
+        // console.log('upgrader:', this.getCountOf(constants.GROUP_UPGRADER), '(', minUpgrader, ')');
+        // console.log('builder:', this.getCountOf(constants.GROUP_BUILDER), '(', minBuilder, ')');
     },
 
     getCountOf: function (groupName) {
@@ -29,15 +29,15 @@ let spawnutil = {
     },
 
     spawnHarvester: function () {
-        this.spawnCreepOfGroup([WORK, CARRY, CARRY, MOVE, MOVE], constants.GROUP_HARVESTER)
+        this.spawnCreepOfGroup([WORK, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE], constants.GROUP_HARVESTER)
     },
 
     spawnUpgrader: function () {
-        this.spawnCreepOfGroup([WORK, WORK, CARRY, MOVE], constants.GROUP_UPGRADER)
+        this.spawnCreepOfGroup([WORK, WORK, CARRY, CARRY, MOVE, MOVE], constants.GROUP_UPGRADER)
     },
 
     spawnBuilder: function () {
-        this.spawnCreepOfGroup([WORK, WORK, CARRY, MOVE], constants.GROUP_BUILDER)
+        this.spawnCreepOfGroup([WORK, WORK, CARRY, CARRY, MOVE, MOVE], constants.GROUP_BUILDER)
     },
 
     spawnCreepOfGroup: function (modules, group) {
