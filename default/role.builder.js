@@ -1,6 +1,7 @@
 let actions = require('utils.actions')
 
 const WALL_MAX_HEALTH = 50000;
+const RAMPART_MAX_HEALTH = 50000;
 
 let roleBuilder = {
 
@@ -24,7 +25,7 @@ let roleBuilder = {
                 let structureToRepair = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (struct) => {
                     return struct.hits < struct.hitsMax
                             && ((struct.structureType === STRUCTURE_WALL && struct.hits <= WALL_MAX_HEALTH)
-                                || struct.structureType === STRUCTURE_RAMPART)
+                                || (struct.structureType === STRUCTURE_RAMPART && struct.hits <= RAMPART_MAX_HEALTH))
                 }});
                 actions.repair(creep, structureToRepair);
             }

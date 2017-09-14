@@ -19,18 +19,24 @@ let roleTower = {
                 let damagedCreeps = _.filter(creeps, (creep) => creep.hits < creep.hitsMax);
                 damagedCreeps.forEach((creep) => this.healCreep(tower, creep));
 
+                let repairableStructures = [];
                 if (tower.energy > 0.33 * tower.energyCapacity) {
-                    let repairableStructures = _.filter(structures, (struct) => {
+                    repairableStructures = repairableStructures.concat(_.filter(structures, (struct) => {
                         return struct.hits < struct.hitsMax &&
                             ((struct.structureType === STRUCTURE_RAMPART && struct.hits <= RAMPART_MAX_HEALTH)
                                 || struct.structureType === STRUCTURE_ROAD)
-                    }).sort((o1, o2) => (o1.hits / o1.hitsMax) < (o2.hits / o2.hitsMax));
-                    this.repair(tower, repairableStructures[0]);
-                } else if (tower.energy > 0.66 * tower.energyCapacity) {
-                    let repairableWalls = _.filter(structures, (struct) => {
+                    }));
+
+                }
+                if (tower.energy > 0.66 * tower.energyCapacity) {
+                    repairableStructures = repairableStructures.concat(_.filter(structures, (struct) => {
                         return struct.structureType === STRUCTURE_WALL && struct.hits <= WALL_MAX_HEALTH
-                    });
-                    this.repair(tower, repairableWalls[0]);
+                    }));
+                }
+
+                if (repairableStructures.length > 0) {
+                    let sorted = repairableStructures.sort((o1, o2) => (o1.hits / o1.hitsMax) < (o2.hits / o2.hitsMax));
+                    this.repair(tower, sorted[0]);
                 }
             }
         });
@@ -59,9 +65,11 @@ let roleTower = {
     repair: function (tower, structure) {
         let repairResult = tower.repair(structure);
         if (repairResult === ERR_NOT_ENOUGH_RESOURCES) {
-            console.log("Not enough resources to repair", structure.id, '(', structure.structureType, ')');
+            console.log("Not enough resources to repair", structure, '(', structure.structureType, ')');
+        } else if (repairResult === ERR_INVALID_TARGET) {
+            console.log("Invalid target to repair", structure);
         } else if (repairResult < 0) {
-            console.log("Repair Error", repairResult);
+            console.log("Repair Error", repairResult, '(', tower, ')');
         }
     }
 };
