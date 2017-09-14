@@ -1,9 +1,9 @@
 let constants = require('constants')
 let locations = require('utils.locations')
 
-const minHarvester = 4;
+const minHarvester = 5;
 const minUpgrader = 4;
-const minBuilder = 3;
+const minBuilder = 4;
 
 let spawnutil = {
 
@@ -19,9 +19,9 @@ let spawnutil = {
             this.spawnBuilder()
         }
 
-        console.log('harvester:', this.getCountOf(constants.GROUP_HARVESTER), '(', minHarvester, ')');
-        console.log('upgrader:', this.getCountOf(constants.GROUP_UPGRADER), '(', minUpgrader, ')');
-        console.log('builder:', this.getCountOf(constants.GROUP_BUILDER), '(', minBuilder, ')');
+        // console.log('harvester:', this.getCountOf(constants.GROUP_HARVESTER), '(', minHarvester, ')');
+        // console.log('upgrader:', this.getCountOf(constants.GROUP_UPGRADER), '(', minUpgrader, ')');
+        // console.log('builder:', this.getCountOf(constants.GROUP_BUILDER), '(', minBuilder, ')');
     },
 
     getCountOf: function (groupName) {

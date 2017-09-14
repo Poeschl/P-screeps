@@ -1,3 +1,5 @@
+const WALL_MAX_HEALTH = 100000;
+
 let roleTower = {
 
     /**
@@ -19,7 +21,8 @@ let roleTower = {
                 if (tower.energy > 0.33 * tower.energyCapacity) {
                     let repairableStructures = _.filter(structures, (struct) => {
                         return struct.hits < struct.hitsMax
-                            && (struct.structureType === STRUCTURE_WALL || struct.structureType === STRUCTURE_RAMPART
+                            && ((struct.structureType === STRUCTURE_WALL && struct.hits <= WALL_MAX_HEALTH)
+                                || struct.structureType === STRUCTURE_RAMPART
                                 || struct.structureType === STRUCTURE_ROAD)
                     });
                     repairableStructures.forEach( (toRepair) => this.repair(tower, toRepair));

@@ -1,5 +1,6 @@
-let harvesterRole = require('role.harvester')
 let actions = require('utils.actions')
+
+const WALL_MAX_HEALTH = 100000;
 
 let roleBuilder = {
 
@@ -20,8 +21,12 @@ let roleBuilder = {
                     actions.moveTo(creep, constructions, '#ff1b34');
                 }
             } else {
-                if (creep)
-                    harvesterRole.run(creep);
+                let structureToRepair = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: (struct) => {
+                    return struct.hits < struct.hitsMax
+                            && ((struct.structureType === STRUCTURE_WALL && struct.hits <= WALL_MAX_HEALTH)
+                                || struct.structureType === STRUCTURE_RAMPART)
+                }});
+                actions.repair(creep, structureToRepair);
             }
         } else {
             actions.harvestEnergy(creep);

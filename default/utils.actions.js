@@ -35,6 +35,17 @@ let actions = {
             creep.moveTo(target, {visualizePathStyle: {stroke: strokeColor}, reusePath: false});
             creep.memory.standingTime = 0;
         }
+    },
+
+    repair: function (creep, structure) {
+        let repairResult = creep.repair(structure);
+        if (repairResult === ERR_NOT_OWNER) {
+            console.log(structure.id, "is not owned by us.")
+        } else if (repairResult === ERR_NOT_IN_RANGE) {
+            this.moveTo(creep, structure, '#ff6f75')
+        } else if (repairResult < 0) {
+            console.log("repair error:", repairResult, '(', creep, ')')
+        }
     }
 };
 
