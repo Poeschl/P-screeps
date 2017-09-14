@@ -1,4 +1,5 @@
-const WALL_MAX_HEALTH = 100000;
+const WALL_MAX_HEALTH = 50000;
+const RAMPART_MAX_HEALTH = 50000;
 
 let roleTower = {
 
@@ -16,16 +17,20 @@ let roleTower = {
 
             } else {
                 let damagedCreeps = _.filter(creeps, (creep) => creep.hits < creep.hitsMax);
-                damagedCreeps.forEach( (creep) => this.healCreep(tower, creep));
+                damagedCreeps.forEach((creep) => this.healCreep(tower, creep));
 
                 if (tower.energy > 0.33 * tower.energyCapacity) {
                     let repairableStructures = _.filter(structures, (struct) => {
-                        return struct.hits < struct.hitsMax
-                            && ((struct.structureType === STRUCTURE_WALL && struct.hits <= WALL_MAX_HEALTH)
-                                || struct.structureType === STRUCTURE_RAMPART
+                        return struct.hits < struct.hitsMax &&
+                            ((struct.structureType === STRUCTURE_RAMPART && struct.hits <= RAMPART_MAX_HEALTH)
                                 || struct.structureType === STRUCTURE_ROAD)
+                    }).sort((o1, o2) => (o1.hits / o1.hitsMax) < (o2.hits / o2.hitsMax));
+                    this.repair(tower, repairableStructures[0]);
+                } else if (tower.energy > 0.66 * tower.energyCapacity) {
+                    let repairableWalls = _.filter(structures, (struct) => {
+                        return struct.structureType === STRUCTURE_WALL && struct.hits <= WALL_MAX_HEALTH
                     });
-                    repairableStructures.forEach( (toRepair) => this.repair(tower, toRepair));
+                    this.repair(tower, repairableWalls[0]);
                 }
             }
         });

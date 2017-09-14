@@ -1,6 +1,6 @@
 let actions = require('utils.actions')
 
-const WALL_MAX_HEALTH = 100000;
+const WALL_MAX_HEALTH = 50000;
 
 let roleBuilder = {
 
