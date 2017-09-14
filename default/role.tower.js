@@ -58,7 +58,6 @@ let roleTower = {
 
     repair: function (tower, structure) {
         let repairResult = tower.repair(structure);
-
         if (repairResult === ERR_NOT_ENOUGH_RESOURCES) {
             console.log("Not enough resources to repair", structure.id, '(', structure.structureType, ')');
         } else if (repairResult < 0) {

@@ -12,7 +12,6 @@ let actions = {
                 filter: (source) => source.id !== targetSource.id
             });
         }
-
         if (creep.harvest(targetSource) === ERR_NOT_IN_RANGE) {
             this.moveTo(creep, targetSource, '#ffda86');
         }
